@@ -1,0 +1,26 @@
+@(logs: Seq[Log])
+<html>
+  <body>
+    <div>
+      <div id="logs">
+        <h2>Insert a log here:</h2>
+
+        <form action="/insert/log" method="POST">
+          <input name="level" type="text" placeholder="Log level:"/>
+          <input name="code" type="text" placeholder="Error code"/>
+          <input type="submit"/>
+        </form>
+
+        <h2>Previously inserted cats:</h2>
+        <table>
+          <tr><th>Level</th><th>Code</th></tr>
+          @for(c <- logs){
+            <tr><td>@c.Level</td><td>@c.Code</td></tr>
+          }
+        </table>
+      </div>
+
+
+    </div>
+  </body>
+</html>
