@@ -8,7 +8,15 @@ import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 
 case class Log(Level: Int, Code: Int)
+{
+  def toXml: xml.Elem = {
+    <Log>
+      <Level>{Level}</Level>
+      <Code>{Code}</Code>
+    </Log>
+  }
 
+}
 /* Table mapping
  */
 class LogTable(tag: Tag) extends Table[Log](tag, "LOG") {
