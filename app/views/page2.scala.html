@@ -1,5 +1,27 @@
-@()
+@(stats: Seq[StatsMsg])
+<html>
+  <body>
+    <div>
+      <div id="logs">
+        <h2>Insert statistics here:</h2>
 
-@template() {
-  <h2>Page2</h2>
-}
+        <form action="/insert/stats" method="POST">
+          <input name="level" type="text" placeholder="Log level"/>
+          <input name="code" type="text" placeholder="Error code"/>
+          <input name="time" type="text" placeholder="Time"/>
+          <input type="submit"/>
+        </form>
+
+        <h2>Previously inserted cats:</h2>
+        <table>
+          <tr><th>Level</th><th>Code</th></tr>
+          @for(c <- stats){
+            <tr><td>@c.Name</td><td>@c.Value</td><td>@c.Time</td></tr>
+          }
+        </table>
+      </div>
+
+
+    </div>
+  </body>
+</html>

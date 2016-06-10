@@ -1,4 +1,4 @@
-@()
+@(logs: Seq[Log], stats: Seq[StatsMsg])
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
@@ -26,14 +26,38 @@
     </div>
 </nav>
 
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm-12" ng-view></div>
+    <div class="container-fluid">
+    <h2>Insert a log here:</h2>
+    <form action="/insert/log" method="POST">
+        <input name="level" type="text" placeholder="Log level:"/>
+        <input name="code" type="text" placeholder="Error code:"/>
+        <input type="submit"/>
+    </form>
+        <h2>Previously inserted log data:</h2>
+    <table>
+        <tr><th>Level</th><th>Code</th></tr>
+        @for(c <- logs){
+            <tr><td>@c.Level</td><td>@c.Code</td></tr>
+        }
+    </table>
     </div>
 
-</div>
-
+    <div class="container-fluid">
+        <h2>Insert a statistic here:</h2>
+        <form action="/insert/log?reqtype=Stats" method="POST">
+            <input name="Name" type="text" placeholder="Name:"/>
+            <input name="Value" type="text" placeholder="Value:"/>
+            <input name="Time" type="text" placeholder="Time:"/>
+            <input type="submit"/>
+        </form>
+        <h2>Previously inserted statistic data:</h2>
+        <table>
+            <tr><td>Name</td><td>Value</td><td>Time</td></tr>
+            @for(c <- stats){
+                <tr><td>@c.Name</td><td>@c.Value</td><td>@c.Time</td></tr>
+            }
+        </table>
+    </div>
 <footer>
     <hr/>
     <div>

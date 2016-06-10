@@ -4,20 +4,22 @@
 # Note: @controllers syntax signifies the actual controller instance, retrieved via GlobalSettings.getController().
 # ~~~~
 
+# Default landing page
+GET     /                           @controllers.Frontend.index
 
-GET     /                           @controllers.Application.index
+# Backend Methods
+POST    /LogService                 @controllers.Backend.MakeLogRes
+POST    /DataService                @controllers.Backend.MakeLogRes
+# DB methods
+POST    /insert/log                 @controllers.Backend.insertLog(reqtype: String ?= "Log")
+
+
+# Frontend Methods
+GET     /getdata                    @controllers.Frontend.ReturnData(reqtype: String ?= "Log")
 
 # Single endpoint for serving AngularJS
-GET     /main                      @controllers.Application.main
-# Single endpoint for XML services
-GET     /req                        @controllers.Application.makereq
-POST    /hello                      @controllers.Application.sayHello
-
-GET     /LogReq                     @controllers.Application.MakeLogReq(reqtype: String ?= "Log")
-POST    /LogService                 @controllers.Application.MakeLogRes
+GET     /main                      @controllers.Frontend.main
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               @controllers.Assets.versioned(path="/public", file: Asset)
 
-# DB methods
-POST    /insert/log                 @controllers.Application.insertLog(reqtype: String ?= "Log")
